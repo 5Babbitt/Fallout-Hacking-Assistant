@@ -8,6 +8,12 @@
 # crossout words with no similarities
 # recommend best choices
 
+# test variables
+test_options_one: list[str] = ['protecting', 'productive', 'consisting', 'procession', 'aggressive',
+                               'prosperity', 'production', 'commission', 'philosophy', 'population',
+                               'possession', 'disturbing', 'protection', 'schematics', 'undergoing',
+                               'projection', 'initiation']
+test_answer_one: str = 'production'
 
 options: list[str] = []
 password_length: int = 0
