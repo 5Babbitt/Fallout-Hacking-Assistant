@@ -9,16 +9,27 @@
 # recommend best choices
 
 # test variables
-test_options_one: list[str] = ['protecting', 'productive', 'consisting', 'procession', 'aggressive',
-                               'prosperity', 'production', 'commission', 'philosophy', 'population',
-                               'possession', 'disturbing', 'protection', 'schematics', 'undergoing',
-                               'projection', 'initiation']
-test_answer_one: str = 'production'
+test_list_valid: list[str] = ['protecting', 'productive', 'consisting', 'procession', 'aggressive',
+                            'prosperity', 'production', 'commission', 'philosophy', 'population',
+                            'possession', 'disturbing', 'protection', 'schematics', 'undergoing',
+                            'projection', 'initiation']
+test_list_invalid: list[str] = ['protecting', 'productive', 'consisted', 'procession', 'aggressively',
+                            'prosperity', 'production', 'commission', 'philosopher', 'population',
+                            'possession', 'disturbing', 'protection', 'schematics', 'underground',
+                            'projection', 'initiation']
+
+test_choice_one: int = 1
+test_choice_two: int = 2
+test_choice_three: int = 7
+
+test_answer: str = 'production' # if all recommendations contain this then pass
 
 options: list[str] = []
 password_length: int = 0
 
-def main() -> None:
+def list_options() -> list[str]:
+    word_list: list[str] = []
+    
     # Get each option and word length
     while True:
         option: str = input("Enter option (leave blank to finish):")
@@ -37,9 +48,22 @@ def main() -> None:
             print("Incorrect word length")
             continue
 
-        options.append(option)
+        print(f'{option} added')
+        word_list.append(option)
 
-    # print list
+    return word_list
+
+def main() -> None:
+    # get list
+    options = list_options()
+
+    # print list and options
+
+    # recommend first choices
+
+    # enter similarity number for specific target
+
+    # recommend new choices based on similarity
     ...
 
 if __name__ == "__main__":
