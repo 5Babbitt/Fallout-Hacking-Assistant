@@ -27,7 +27,15 @@ test_choice_three: int = 7
 test_answer: str = 'production' # if all recommendations contain this then pass
 
 options: list[str] = []
+similarites: dict = {}
 password_length: int = 0
+
+def display_list() -> None:
+    global options
+
+    for count, item in enumerate(options):
+        count += 1
+        print(f'{count}: {item}')
 
 def list_options() -> list[str]:
     word_list: list[str] = []
@@ -55,21 +63,50 @@ def list_options() -> list[str]:
         print(f'{option} added')
         word_list.append(option)
 
-    for count, item in enumerate(word_list):
-        count += 1
-        print(f'{count}: {item}')
-
     return word_list
 
-def select_option() -> str:
+def select_option() -> None:
+    global options
+    global similarites
     
+    print("Enter the option you selected")
+    display_list()
+
+    index: int = int(input("Selection (-1 to end): ")) - 1
+    if index == -2:
+        sys.exit()
+    
+    if index > len(options) or index < 0:
+        ...
+
+    similarity: int = input(f"Enter the similarity of {options[index]} out of {password_length}: ")
+    similarites[index] = similarity
+
+    print(similarites)
+
+    recommend_options()
     ...
 
 def recommend_options() -> list[str]:
+    global options
+    global similarites
+
+    if len(similarites) <= 0:
+        ...
+        return
     
+    compare_words: list[str]
+    ...
+
+def edit_list() -> None:
+    global options
+
     ...
 
 def main() -> None:
+    global options
+    global similarites
+
     print("Welcome to the Fallout Hacking Assistant")
     # get list
     options = list_options()
@@ -81,7 +118,7 @@ def main() -> None:
     print("3. Edit list")
     
     while True:
-        ans: int = input("Enter (-1 to exit): ")
+        ans: int = int(input("Enter (-1 to exit): "))
 
         match ans:
             case 1:
