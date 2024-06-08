@@ -8,6 +8,8 @@
 # crossout words with no similarities
 # recommend best choices
 
+import sys
+
 # test variables
 test_list_valid: list[str] = ['protecting', 'productive', 'consisting', 'procession', 'aggressive',
                             'prosperity', 'production', 'commission', 'philosophy', 'population',
@@ -34,6 +36,7 @@ def list_options() -> list[str]:
     # Get each option and word length
     while True:
         option: str = input("Enter option (leave blank to finish):")
+        
         if not option:
             break
 
@@ -52,24 +55,53 @@ def list_options() -> list[str]:
         print(f'{option} added')
         word_list.append(option)
 
-    return word_list
-
-def main() -> None:
-    # get list
-    options = list_options()
-
-    for count, item in enumerate(options):
+    for count, item in enumerate(word_list):
         count += 1
         print(f'{count}: {item}')
 
-    # print list and options
+    return word_list
+
+def select_option() -> str:
+    
+    ...
+
+def recommend_options() -> list[str]:
+    
+    ...
+
+def main() -> None:
+    print("Welcome to the Fallout Hacking Assistant")
+    # get list
+    options = list_options()
+    # get list and print options
+
+    print("\nWhat would you like to do?")
+    print("1. Get Recommendations")
+    print("2. Make a selection")
+    print("3. Edit list")
+    
+    while True:
+        ans: int = input("Enter (-1 to exit): ")
+
+        match ans:
+            case 1:
+                recommend_options()
+            case 2: 
+                select_option()
+            case 3:
+                ...
+            case -1:
+                sys.exit()
+            case _:
+                print("Invalid selection! Try again")
+                continue
+
 
     # recommend first choices
 
     # enter similarity number for specific target
 
     # recommend new choices based on similarity
-    ...
 
 if __name__ == "__main__":
     main()
