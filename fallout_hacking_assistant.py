@@ -29,6 +29,7 @@ password_length: int = 0
 
 def list_options() -> list[str]:
     word_list: list[str] = []
+    global password_length
     
     # Get each option and word length
     while True:
@@ -36,8 +37,8 @@ def list_options() -> list[str]:
         if not option:
             break
 
-        if len(password_length) <= 2:
-            con: str = input(f"Confirm {password_length} is the correct length (y/n)?:")
+        if password_length == 0:
+            con: str = input(f"Confirm {len(option)} is the correct length (y/n)?:")
             
             if con.lower() != 'y':
                 print("Please Retry!")
@@ -56,6 +57,10 @@ def list_options() -> list[str]:
 def main() -> None:
     # get list
     options = list_options()
+
+    for count, item in enumerate(options):
+        count += 1
+        print(f'{count}: {item}')
 
     # print list and options
 
