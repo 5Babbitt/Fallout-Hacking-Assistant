@@ -93,16 +93,10 @@ def recommend_options() -> list[str]:
 
     if not similarites:
         recommend_first_options()
-
-    compare_words: dict = {}
-
-    for i in similarites:
-        compare_words[options[i]] = similarites[i]
-    ...
+        return
 
 def recommend_first_options() -> None:
     global options
-    global similarites
     scores: dict = {}
 
     for name in options:
@@ -119,8 +113,6 @@ def recommend_first_options() -> None:
     recommendations: list[str] = [''] * 5
 
     for i, j in enumerate(recommendations):
-        print(i)
-
         candidate: str = j
 
         for x, y in scores.items():
@@ -133,14 +125,14 @@ def recommend_first_options() -> None:
 
             if scores[candidate] < y:
                 candidate = x
-        
-        print(candidate)
+    
         recommendations[i] = candidate
-    
-    print(scores)
-    print(recommendations)
-    
-    return
+
+    print("\nRecommended first guesses:")
+    for i, j in enumerate(recommendations):
+        print(f"{i}. {j}")
+
+    con = input("\nPress Enter to continue...")
 
 def edit_list() -> None:
     global options
@@ -150,7 +142,6 @@ def edit_list() -> None:
 def main() -> None:
     global options
     global similarites
-    global password_length
 
     print("Welcome to the Fallout Hacking Assistant")
     print("1. Use test list")
@@ -159,7 +150,6 @@ def main() -> None:
     # get list and print options
     if run == 1:
         options = test_list_valid
-        password_length = 10
     elif run == -1:
         sys.exit()
     else:
