@@ -43,13 +43,13 @@ def list_options() -> list[str]:
     
     # Get each option and word length
     while True:
-        option: str = input("Enter option (leave blank to finish):")
+        option: str = input("Enter option (leave blank to finish): ")
         
         if not option:
             break
 
         if password_length == 0:
-            con: str = input(f"Confirm {len(option)} is the correct length (y/n)?:")
+            con: str = input(f"Confirm {len(option)} is the correct length (y/n)?: ")
             
             if con.lower() != 'y':
                 print("Please Retry!")
@@ -80,7 +80,7 @@ def select_option() -> None:
         ...
 
     similarity: int = input(f"Enter the similarity of {options[index]} out of {password_length}: ")
-    similarites[index] = similarity
+    similarites[options[index]] = similarity
 
     print(similarites)
 
@@ -91,12 +91,56 @@ def recommend_options() -> list[str]:
     global options
     global similarites
 
-    if len(similarites) <= 0:
-        ...
-        return
-    
-    compare_words: list[str]
+    if not similarites:
+        recommend_first_options()
+
+    compare_words: dict = {}
+
+    for i in similarites:
+        compare_words[options[i]] = similarites[i]
     ...
+
+def recommend_first_options() -> None:
+    global options
+    global similarites
+    scores: dict = {}
+
+    for name in options:
+        score: int = 0
+        for comparison in options:
+            if name == comparison:
+                continue
+            for i, char in enumerate(name):
+                if char == comparison[i]:
+                    score += 1
+        scores[name] = score
+    
+    # loop through dictionary and find the 5 highest scores
+    recommendations: list[str] = [''] * 5
+
+    for i, j in enumerate(recommendations):
+        print(i)
+
+        candidate: str = j
+
+        for x, y in scores.items():
+            if candidate not in scores:
+                candidate = x
+                continue
+            
+            if x in recommendations:
+                continue
+
+            if scores[candidate] < y:
+                candidate = x
+        
+        print(candidate)
+        recommendations[i] = candidate
+    
+    print(scores)
+    print(recommendations)
+    
+    return
 
 def edit_list() -> None:
     global options
@@ -106,18 +150,26 @@ def edit_list() -> None:
 def main() -> None:
     global options
     global similarites
+    global password_length
 
     print("Welcome to the Fallout Hacking Assistant")
-    # get list
-    options = list_options()
-    # get list and print options
+    print("1. Use test list")
+    run = int(input("Enter (leave empty to operate as normal): "))
 
-    print("\nWhat would you like to do?")
-    print("1. Get Recommendations")
-    print("2. Make a selection")
-    print("3. Edit list")
+    # get list and print options
+    if run == 1:
+        options = test_list_valid
+        password_length = 10
+    elif run == -1:
+        sys.exit()
+    else:
+        options = list_options()
     
     while True:
+        print("\nWhat would you like to do?")
+        print("1. Get Recommendations")
+        print("2. Make a selection")
+        print("3. Edit list")
         ans: int = int(input("Enter (-1 to exit): "))
 
         match ans:
