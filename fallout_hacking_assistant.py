@@ -39,6 +39,8 @@ def list_options(list_options: list[str] = None) -> list[str]:
     word_list: list[str] = []
     global password_length
     
+    print("Enter new list: ")
+
     # Get each option and word length
     while True:
         option: str = input("Enter option (leave blank to finish): ")
@@ -118,7 +120,6 @@ def recommend_options() -> list[str]:
     display_list(recommendation_list)
     con = input("\nPress Enter to continue...")
 
-
 def recommend_first_options() -> None:
     global options
     scores: dict = {}
@@ -168,7 +169,7 @@ def main() -> None:
 
     print("Welcome to the Fallout Hacking Assistant")
     print("1. Use test list")
-    run = int(input("Enter (leave empty to operate as normal): "))
+    run: int = input("Enter (leave empty to operate as normal): ")
 
     # get list and print options
     if run == 1:
